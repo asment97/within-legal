@@ -276,6 +276,31 @@
         }
       }
 
+      // Surface every available error field so the page never shows the
+      // useless `{}` empty-object stringification. Supabase v2 errors
+      // sometimes arrive without `.message` (just `.status` + `.code`),
+      // so we fall back through several fields before giving up.
+      function describeError(err) {
+        if (!err) return 'unknown error';
+        if (typeof err === 'string') return err;
+        var parts = [];
+        if (err.message) parts.push(err.message);
+        if (err.code) parts.push('code=' + err.code);
+        if (err.status) parts.push('status=' + err.status);
+        if (err.statusCode) parts.push('statusCode=' + err.statusCode);
+        if (err.error_description) parts.push(err.error_description);
+        if (err.error) parts.push(err.error);
+        if (parts.length === 0) {
+          // Last-resort: try JSON stringify the whole thing.
+          try {
+            return JSON.stringify(err) || 'empty error object';
+          } catch (_) {
+            return 'unstringifiable error';
+          }
+        }
+        return parts.join(' · ');
+      }
+
       sendLinkBtn.addEventListener('click', async () => {
         const email = emailInput.value.trim();
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -300,12 +325,14 @@
           if (error) throw error;
           show('sent');
         } catch (err) {
-          console.error(err);
+          // Full object → DevTools console; flattened summary → user.
+          console.error('signInWithOtp failed', err);
+          var summary = describeError(err);
           setStatus(
             statusEmail,
             'error',
-            '发送失败：' + (err.message || '请稍后再试'),
-            'Failed to send: ' + (err.message || 'please try again later'),
+            '发送失败：' + summary,
+            'Failed to send: ' + summary,
           );
         } finally {
           sendLinkBtn.disabled = false;
