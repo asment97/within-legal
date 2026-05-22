@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy · WITHIN</title>
+    <meta
+      name="description"
+      content="WITHIN privacy policy — what data we collect, how it's protected, and your rights."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href="./">
+          <span class="mark" aria-hidden="true"></span>
+          <span class="name">WITHIN</span>
+        </a>
+        <div class="locale-switcher" role="group" aria-label="Language">
+          <button data-lang="zh-Hans" aria-pressed="true">中文</button>
+          <button data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </header>
+
+      <!-- ─────────── Chinese (zh-Hans) ─────────── -->
+      <section lang="zh-Hans">
+        <span class="effective">生效日期 · 2026 年 5 月 22 日</span>
+        <h1>隐私政策</h1>
+        <p class="subtitle">关于 WITHIN 如何处理你和 Ta 的资料</p>
+
+        <div class="callout">
+          <strong>简单说：</strong> WITHIN 是一个为两个人设计的私密空间。我们只收集让 app 正常运作所需的资料；不分析、不卖出、不与第三方共享。你随时可以删除账户，所有资料连同 30 天的缓冲期一起被清除。
+        </div>
+
+        <h2>1. 这个 app 是谁做的</h2>
+        <p>WITHIN 是一位独立开发者制作的个人项目，不属于任何注册公司。所有问题或请求都可以发到
+          <a href="mailto:vibestack.tan@gmail.com">vibestack.tan@gmail.com</a>。</p>
+
+        <h2>2. 我们收集什么资料</h2>
+        <h3>2.1 注册账号时</h3>
+        <ul>
+          <li><strong>电邮地址</strong>（来自你选择的 Google 登录）—— 用于身份认证和与 Ta 的连接。</li>
+          <li><strong>显示名称、头像</strong>（你在「个人资料」中自己填写）。</li>
+        </ul>
+
+        <h3>2.2 使用 app 时</h3>
+        <ul>
+          <li><strong>你输入的内容</strong>：小事、心愿、目标、纪念日、心情记录、留言。这些只属于你们两个人。</li>
+          <li><strong>你上传的照片</strong>（仅当你主动选择上传到「回忆」时），加密存储。</li>
+          <li><strong>粗略位置</strong>（仅在你授权时）—— 用于显示当地天气，精确到城市级别，不存储完整经纬度。</li>
+          <li><strong>设备推送 token</strong>（Firebase Cloud Messaging）—— 用于让 Ta 的小提醒到达你。</li>
+        </ul>
+
+        <h3>2.3 我们不收集</h3>
+        <ul>
+          <li>你的通讯录、相册（除了你主动选择的那一张）、其他 app 的使用记录。</li>
+          <li>广告 ID、设备指纹、行为追踪。</li>
+          <li>完整 GPS 坐标、出行轨迹。</li>
+        </ul>
+
+        <h2>3. 资料如何被保护</h2>
+        <ul>
+          <li>所有数据通过 HTTPS / TLS 1.2+ 加密传输。</li>
+          <li>后端存储（Supabase / PostgreSQL）启用 Row-Level Security —— 你只能读到属于你们这对的资料，连数据库管理员也看不到他人的内容。</li>
+          <li>照片以 Supabase Storage 加密存放，访问通过短时有效的签名链接。</li>
+          <li>密码由 Supabase Auth 用 bcrypt 散列存储（如果你将来选择电邮密码登录）。</li>
+        </ul>
+
+        <h2>4. 谁能看到这些资料</h2>
+        <ul>
+          <li><strong>你</strong> —— 通过你的账号。</li>
+          <li><strong>Ta（你绑定的伴侣）</strong> —— WITHIN 的核心就是「两个人共享」，所以小事、心愿、心情记录默认对 Ta 可见。每一处都可以在创建时关掉「同步给 Ta」。</li>
+          <li><strong>WITHIN 开发者</strong> —— 只在你主动通过支持邮箱要求帮助时，并经你同意之后。</li>
+          <li><strong>第三方</strong> —— 不会。我们不把你的资料卖给任何人，也不用作广告或分析（除了 Firebase Crashlytics 收集匿名的崩溃报告 —— 不含任何你的内容）。</li>
+        </ul>
+
+        <h2>5. 资料存放在哪里</h2>
+        <p>资料存放在 Supabase 的服务器上（区域：新加坡 / Asia-Southeast）。Firebase 服务（崩溃报告、推送）由 Google 在区域内的数据中心运行。</p>
+
+        <h2>6. 资料留存时间</h2>
+        <ul>
+          <li>账号活跃期间，资料一直保留以确保 app 正常使用。</li>
+          <li>当你触发「删除账号」时（设置 → 账号 → 删除我的账号），账号立即被标记为待删除，进入 <strong>30 天宽容期</strong>。</li>
+          <li>宽容期内，你可以通过重新登录 app 取消删除。</li>
+          <li>30 天后，所有资料（包括 Ta 与你共享的部分）被永久清除。删除账号同时会让你脱离与 Ta 的连接 —— 这是目前唯一的「解绑」方式。</li>
+          <li>崩溃报告日志最多保留 90 天，由 Firebase Crashlytics 自动循环。</li>
+        </ul>
+
+        <h2>7. 你的权利</h2>
+        <p>根据马来西亚《个人资料保护法 2010》（PDPA），你有权：</p>
+        <ul>
+          <li><strong>访问</strong>你的资料 —— 设置 → 账号 → 导出我的资料（JSON 格式）。</li>
+          <li><strong>更正</strong>你的资料 —— 直接在 app 中编辑个人资料、心情、小事等。</li>
+          <li><strong>删除</strong>你的资料 —— 设置 → 账号 → 删除我的账号，或访问 <a href="delete-account.html">网页版删除入口</a>。</li>
+          <li><strong>撤回同意</strong> —— 关掉推送、位置等系统权限，或直接删除账号。</li>
+        </ul>
+
+        <h2>8. 儿童保护</h2>
+        <p>WITHIN 是面向 <strong>17 岁及以上</strong>的用户设计的（App Store / Play 评级：Mature 17+）。我们不刻意收集 17 岁以下用户的资料；如果发现，资料会被立即删除。</p>
+
+        <h2>9. 政策的更新</h2>
+        <p>这份政策可能因为功能调整或法规要求而更新。重大改动会在 app 内推送通知，并把新版本发布在
+          <a href="privacy.html">privacy.html</a>。生效日期在文首。</p>
+
+        <h2>10. 联系我们</h2>
+        <p>关于隐私的任何问题、请求或投诉，请发邮件到
+          <a href="mailto:vibestack.tan@gmail.com">vibestack.tan@gmail.com</a>。我们会在合理时间内（通常 7 个工作日内）回复。</p>
+      </section>
+
+      <!-- ─────────── English (en) ─────────── -->
+      <section lang="en" hidden>
+        <span class="effective">EFFECTIVE 22 MAY 2026</span>
+        <h1>Privacy policy</h1>
+        <p class="subtitle">How WITHIN handles your and your partner's data</p>
+
+        <div class="callout">
+          <strong>The short version.</strong> WITHIN is a private space for two
+          people. We collect only what's needed for the app to work — no
+          analytics resale, no third-party sharing. You can delete your
+          account any time and everything is wiped after a 30-day grace
+          period.
+        </div>
+
+        <h2>1. Who makes this app</h2>
+        <p>
+          WITHIN is a personal project built by an independent developer; it
+          is not operated by a registered company. Any questions or requests
+          can be sent to
+          <a href="mailto:vibestack.tan@gmail.com">vibestack.tan@gmail.com</a>.
+        </p>
+
+        <h2>2. What we collect</h2>
+        <h3>2.1 At sign-up</h3>
+        <ul>
+          <li>
+            <strong>Email address</strong> (from the Google sign-in you choose)
+            — used for authentication and to connect you with your partner.
+          </li>
+          <li>
+            <strong>Display name and avatar</strong> — only what you provide
+            in your profile.
+          </li>
+        </ul>
+
+        <h3>2.2 While you use the app</h3>
+        <ul>
+          <li>
+            <strong>Content you create</strong>: little things, wishes, goals,
+            anniversaries, mood check-ins, notes. These are visible only to
+            the two of you.
+          </li>
+          <li>
+            <strong>Photos you upload</strong> (only those you actively pick
+            for memories), stored encrypted.
+          </li>
+          <li>
+            <strong>Coarse location</strong> (only with your permission) —
+            used to show local weather at city granularity. Full
+            latitude/longitude is never stored.
+          </li>
+          <li>
+            <strong>Device push token</strong> (Firebase Cloud Messaging) — so
+            quiet reminders from your partner can reach you.
+          </li>
+        </ul>
+
+        <h3>2.3 What we do NOT collect</h3>
+        <ul>
+          <li>
+            Your contacts, photo library (except the picture you choose),
+            other apps' usage records.
+          </li>
+          <li>Advertising IDs, device fingerprints, behavioural tracking.</li>
+          <li>Precise GPS coordinates or movement traces.</li>
+        </ul>
+
+        <h2>3. How data is protected</h2>
+        <ul>
+          <li>All data is transmitted over HTTPS / TLS 1.2+.</li>
+          <li>
+            The backend (Supabase / PostgreSQL) uses Row-Level Security — you
+            can only read rows that belong to your couple; even database
+            operators cannot see other couples' content.
+          </li>
+          <li>
+            Photos are stored encrypted in Supabase Storage; access uses
+            short-lived signed URLs.
+          </li>
+          <li>
+            Passwords (if you switch to email/password sign-in in the future)
+            are bcrypt-hashed by Supabase Auth.
+          </li>
+        </ul>
+
+        <h2>4. Who can see your data</h2>
+        <ul>
+          <li><strong>You</strong>, through your account.</li>
+          <li>
+            <strong>Your partner</strong> (the person you bind with). WITHIN
+            is built on the premise of sharing between two people, so little
+            things, wishes, mood entries are visible to them by default.
+            Anything sensitive can be marked "私密 / private" at the moment
+            you create it.
+          </li>
+          <li>
+            <strong>The WITHIN developer</strong>, only when you actively
+            request support and consent to share details.
+          </li>
+          <li>
+            <strong>Third parties</strong>: no. We do not sell your data, run
+            ads, or share with analytics partners — apart from Firebase
+            Crashlytics, which receives anonymous crash reports that contain
+            no content of yours.
+          </li>
+        </ul>
+
+        <h2>5. Where data is stored</h2>
+        <p>
+          Data is stored on Supabase servers (region: Singapore /
+          Asia-Southeast). Firebase services (crash reports, push) are
+          operated by Google in the same regional cluster.
+        </p>
+
+        <h2>6. How long we keep it</h2>
+        <ul>
+          <li>
+            While your account is active, your data is retained so the app
+            works.
+          </li>
+          <li>
+            When you trigger "Delete my account" (Settings → Account → Delete
+            my account), the account is immediately marked for deletion and a
+            <strong>30-day grace period</strong> begins.
+          </li>
+          <li>
+            During the grace period, signing back into the app cancels the
+            deletion.
+          </li>
+          <li>
+            After 30 days, everything (including content shared with your
+            partner) is permanently purged. Deleting the account also detaches
+            you from your partner — that is currently the only "unbind"
+            mechanism.
+          </li>
+          <li>
+            Crash report logs are retained for up to 90 days by Firebase
+            Crashlytics on its standard rolling window.
+          </li>
+        </ul>
+
+        <h2>7. Your rights</h2>
+        <p>
+          Under Malaysia's Personal Data Protection Act 2010 (PDPA), you may:
+        </p>
+        <ul>
+          <li>
+            <strong>Access</strong> your data — Settings → Account → Export my
+            data (JSON).
+          </li>
+          <li>
+            <strong>Correct</strong> your data — edit your profile, moods, or
+            little things directly in the app.
+          </li>
+          <li>
+            <strong>Delete</strong> your data — Settings → Account → Delete my
+            account, or use the
+            <a href="delete-account.html">web delete portal</a>.
+          </li>
+          <li>
+            <strong>Withdraw consent</strong> — turn off notification or
+            location permissions in your OS settings, or delete the account.
+          </li>
+        </ul>
+
+        <h2>8. Children</h2>
+        <p>
+          WITHIN is designed for users aged <strong>17 and above</strong>
+          (App Store / Play rating: Mature 17+). We do not knowingly collect
+          data from users under 17; if discovered, it is deleted promptly.
+        </p>
+
+        <h2>9. Updates to this policy</h2>
+        <p>
+          This policy may be updated for new features or regulatory changes.
+          Significant changes are announced in the app and the new version is
+          published at <a href="privacy.html">privacy.html</a>. The effective
+          date is shown at the top.
+        </p>
+
+        <h2>10. Contact</h2>
+        <p>
+          For any privacy questions, requests, or complaints, email
+          <a href="mailto:vibestack.tan@gmail.com">vibestack.tan@gmail.com</a>.
+          We aim to reply within 7 business days.
+        </p>
+      </section>
+
+      <footer>
+        <div class="links">
+          <a href="privacy.html">Privacy · 隐私</a>
+          <a href="terms.html">Terms · 条款</a>
+          <a href="delete-account.html">Delete account · 删除账户</a>
+          <a href="support.html">Support · 支持</a>
+        </div>
+        <p>© 2026 WITHIN · 由独立开发者维护 · Built with care</p>
+      </footer>
+    </main>
+
+    <script src="i18n.js" defer></script>
+  </body>
+</html>

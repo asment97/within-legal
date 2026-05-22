@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Delete account · WITHIN</title>
+    <meta
+      name="description"
+      content="Delete your WITHIN account from the web. A magic link is sent to your email; clicking it brings you back here to confirm."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href="./">
+          <span class="mark" aria-hidden="true"></span>
+          <span class="name">WITHIN</span>
+        </a>
+        <div class="locale-switcher" role="group" aria-label="Language">
+          <button data-lang="zh-Hans" aria-pressed="true">中文</button>
+          <button data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </header>
+
+      <!-- ─────────── Chinese (zh-Hans) descriptive section ─────────── -->
+      <section lang="zh-Hans">
+        <span class="effective">网页版账户删除</span>
+        <h1>删除我的 WITHIN 账户</h1>
+        <p class="subtitle">这个入口让你在不打开 app 的情况下删除账户。流程和 app 内的「设置 → 账号 → 删除我的账号」完全相同。</p>
+
+        <div class="callout">
+          <strong>会发生什么？</strong>
+          <ul>
+            <li>你的账户会立即被标记为待删除，并从你和 Ta 的连接中移出。</li>
+            <li>接下来的 <strong>30 天</strong>是宽容期 —— 你可以重新登录 app 取消删除。</li>
+            <li>30 天后，所有资料（包括与 Ta 共享的部分）会被永久清除。</li>
+            <li>这是目前唯一的「解绑」方式 —— 删除账户会同时把你和 Ta 的连接断开。</li>
+          </ul>
+        </div>
+
+        <p>请输入你登录 WITHIN 时使用的电邮地址。我们会发一条「魔法链接」到那个邮箱，点击它即可继续。</p>
+      </section>
+
+      <!-- ─────────── English descriptive section ─────────── -->
+      <section lang="en" hidden>
+        <span class="effective">WEB ACCOUNT DELETE</span>
+        <h1>Delete my WITHIN account</h1>
+        <p class="subtitle">
+          This portal lets you delete your account without opening the app.
+          The flow is identical to the in-app one
+          (Settings → Account → Delete my account).
+        </p>
+
+        <div class="callout">
+          <strong>What happens:</strong>
+          <ul>
+            <li>
+              Your account is immediately marked for deletion and detached
+              from the couple connection.
+            </li>
+            <li>
+              A <strong>30-day grace period</strong> follows — signing back in
+              to the app cancels the deletion.
+            </li>
+            <li>
+              After 30 days, all data (including content shared with your
+              partner) is permanently purged.
+            </li>
+            <li>
+              This is currently the only "unbind" mechanism — deleting the
+              account also detaches you from your partner.
+            </li>
+          </ul>
+        </div>
+
+        <p>
+          Enter the email address you signed into WITHIN with. We'll send a
+          one-time "magic link" to that inbox; click it to continue.
+        </p>
+      </section>
+
+      <!-- ─────────── The form (bilingual via inline lang spans) ─────────── -->
+      <div class="delete-form" id="delete-form">
+        <!-- Step 1 — email input + send magic link -->
+        <div data-step="email">
+          <label for="email">
+            <strong data-locale-span lang="zh-Hans">你的电邮地址</strong>
+            <strong data-locale-span lang="en" hidden>Your email address</strong>
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+          <button id="send-link" type="button">
+            <span data-locale-span lang="zh-Hans">发送魔法链接</span>
+            <span data-locale-span lang="en" hidden>Send magic link</span>
+          </button>
+          <div id="status-email" class="status"></div>
+        </div>
+
+        <!-- Step 2 — link sent; user checks inbox -->
+        <div data-step="sent" hidden>
+          <p data-locale-span lang="zh-Hans">
+            ✉ 邮件已发出。请到收件箱查找「WITHIN 删除账户」的链接，点击后会回到这里。链接 60 分钟内有效。
+          </p>
+          <p data-locale-span lang="en" hidden>
+            ✉ Email sent. Look for "WITHIN delete account" in your inbox and
+            click the link — it brings you back here. The link is valid for
+            60 minutes.
+          </p>
+          <button id="resend" type="button" class="secondary">
+            <span data-locale-span lang="zh-Hans">用另一个电邮</span>
+            <span data-locale-span lang="en" hidden>Use a different email</span>
+          </button>
+        </div>
+
+        <!-- Step 3 — authenticated; ready to delete -->
+        <div data-step="confirm" hidden>
+          <p>
+            <span data-locale-span lang="zh-Hans">已登录账户：</span>
+            <span data-locale-span lang="en" hidden>Signed in as: </span>
+            <strong id="signed-in-email"></strong>
+          </p>
+          <p data-locale-span lang="zh-Hans">
+            点击下方按钮确认删除。删除是不可逆的（30 天宽容期内除外）。
+          </p>
+          <p data-locale-span lang="en" hidden>
+            Tap the button below to confirm. Deletion is irreversible
+            (except by signing back in during the 30-day grace period).
+          </p>
+          <button id="confirm-delete" type="button">
+            <span data-locale-span lang="zh-Hans">确认删除我的账户</span>
+            <span data-locale-span lang="en" hidden>Confirm — delete my account</span>
+          </button>
+          <button id="cancel" type="button" class="secondary">
+            <span data-locale-span lang="zh-Hans">取消</span>
+            <span data-locale-span lang="en" hidden>Cancel</span>
+          </button>
+          <div id="status-confirm" class="status"></div>
+        </div>
+
+        <!-- Step 4 — success -->
+        <div data-step="done" hidden>
+          <p data-locale-span lang="zh-Hans">
+            ✓ 已收到你的删除请求。账户进入 30 天宽容期 —— 在这期间重新登录 app 可以取消删除。30 天后所有资料会被永久清除。
+          </p>
+          <p data-locale-span lang="en" hidden>
+            ✓ Your delete request was received. Your account is in the 30-day
+            grace period — signing back into the app during this window
+            cancels the deletion. After 30 days everything is permanently
+            purged.
+          </p>
+          <p>
+            <a href="./">
+              <span data-locale-span lang="zh-Hans">返回 WITHIN 首页</span>
+              <span data-locale-span lang="en" hidden>Back to WITHIN home</span>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <footer>
+        <div class="links">
+          <a href="privacy.html">Privacy · 隐私</a>
+          <a href="terms.html">Terms · 条款</a>
+          <a href="delete-account.html">Delete account · 删除账户</a>
+          <a href="support.html">Support · 支持</a>
+        </div>
+        <p>© 2026 WITHIN · 由独立开发者维护 · Built with care</p>
+      </footer>
+    </main>
+
+    <script src="i18n.js" defer></script>
+    <script type="module">
+      // Supabase JS SDK (UMD via JSDelivr — no build step needed). Pin a
+      // specific minor so a breaking change in the SDK can't quietly land
+      // here on the next page load.
+      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/+esm';
+
+      // ─────────────────────────────────────────────────────────────────
+      // Supabase project config. The anon key is safe to expose — it's
+      // a JWT asserting `role=anon`; every read/write goes through RLS
+      // policies on the server, so the key alone grants no special
+      // access. Mirrors `.env.json` in the app repo. If you rotate the
+      // project, update both here AND the in-app `--dart-define-from-file`.
+      const SUPABASE_URL = 'https://ciblgfgjqqjsetjyktle.supabase.co';
+      const SUPABASE_ANON_KEY =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYmxnZmdqcXFqc2V0anlrdGxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4MjM2MjIsImV4cCI6MjA5NDM5OTYyMn0.AZKdHy6iFN9o2v1rIN2dqVXNqFKqid-OfmfSzJhxDeg';
+      // ─────────────────────────────────────────────────────────────────
+
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      const form = document.getElementById('delete-form');
+      const stepEmail = form.querySelector('[data-step="email"]');
+      const stepSent = form.querySelector('[data-step="sent"]');
+      const stepConfirm = form.querySelector('[data-step="confirm"]');
+      const stepDone = form.querySelector('[data-step="done"]');
+      const emailInput = document.getElementById('email');
+      const sendLinkBtn = document.getElementById('send-link');
+      const resendBtn = document.getElementById('resend');
+      const confirmBtn = document.getElementById('confirm-delete');
+      const cancelBtn = document.getElementById('cancel');
+      const statusEmail = document.getElementById('status-email');
+      const statusConfirm = document.getElementById('status-confirm');
+      const signedInEmail = document.getElementById('signed-in-email');
+
+      function show(step) {
+        [stepEmail, stepSent, stepConfirm, stepDone].forEach((el) => {
+          el.hidden = el.getAttribute('data-step') !== step;
+        });
+      }
+
+      function setStatus(el, kind, msgZh, msgEn) {
+        const lang = document.documentElement.getAttribute('lang') || 'zh-Hans';
+        el.className = 'status ' + kind;
+        el.textContent = lang === 'en' ? msgEn : msgZh;
+      }
+
+      function clearStatus(el) {
+        el.className = 'status';
+        el.textContent = '';
+      }
+
+      // On page load, check whether the URL carries a magic-link code (the
+      // PKCE auth callback). If yes, exchange it for a session and move
+      // straight to the confirm step.
+      async function handleAuthCallback() {
+        // Supabase v2 emits `?code=...` for PKCE OR a hash fragment
+        // `#access_token=...&refresh_token=...` for the older implicit
+        // flow. Try both.
+        const url = new URL(window.location.href);
+        const hasCode = url.searchParams.has('code');
+        const hasHashToken = window.location.hash.includes('access_token=');
+
+        if (!hasCode && !hasHashToken) {
+          // No callback — start at the email-input step.
+          // (But if a session already exists in localStorage from a prior
+          // visit, skip ahead.)
+          const { data } = await supabase.auth.getSession();
+          if (data.session) {
+            signedInEmail.textContent = data.session.user.email || '';
+            show('confirm');
+          }
+          return;
+        }
+
+        try {
+          if (hasCode) {
+            const { data, error } = await supabase.auth.exchangeCodeForSession(
+              window.location.href,
+            );
+            if (error) throw error;
+            signedInEmail.textContent = data.session?.user?.email || '';
+          } else {
+            // Implicit flow: SDK reads the hash automatically when
+            // `detectSessionInUrl` is on (default).
+            const { data, error } = await supabase.auth.getSession();
+            if (error) throw error;
+            signedInEmail.textContent = data.session?.user?.email || '';
+          }
+          // Clean the URL so a refresh doesn't re-trigger the exchange.
+          window.history.replaceState({}, '', window.location.pathname);
+          show('confirm');
+        } catch (err) {
+          console.error(err);
+          setStatus(
+            statusEmail,
+            'error',
+            '链接已过期或无效。请重新输入电邮发送新的链接。',
+            'That link is expired or invalid. Please request a new one.',
+          );
+          show('email');
+        }
+      }
+
+      sendLinkBtn.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+          setStatus(
+            statusEmail,
+            'error',
+            '请输入有效的电邮地址。',
+            'Please enter a valid email address.',
+          );
+          return;
+        }
+        sendLinkBtn.disabled = true;
+        clearStatus(statusEmail);
+        try {
+          const { error } = await supabase.auth.signInWithOtp({
+            email,
+            options: {
+              shouldCreateUser: false,
+              emailRedirectTo: window.location.href,
+            },
+          });
+          if (error) throw error;
+          show('sent');
+        } catch (err) {
+          console.error(err);
+          setStatus(
+            statusEmail,
+            'error',
+            '发送失败：' + (err.message || '请稍后再试'),
+            'Failed to send: ' + (err.message || 'please try again later'),
+          );
+        } finally {
+          sendLinkBtn.disabled = false;
+        }
+      });
+
+      resendBtn.addEventListener('click', () => {
+        clearStatus(statusEmail);
+        emailInput.value = '';
+        show('email');
+      });
+
+      confirmBtn.addEventListener('click', async () => {
+        confirmBtn.disabled = true;
+        clearStatus(statusConfirm);
+        try {
+          const { error } = await supabase.rpc('delete_my_account');
+          if (error) throw error;
+          // Sign out locally so the session can't be reused.
+          await supabase.auth.signOut();
+          show('done');
+        } catch (err) {
+          console.error(err);
+          setStatus(
+            statusConfirm,
+            'error',
+            '删除失败：' + (err.message || '请稍后再试或联系支持邮箱'),
+            'Deletion failed: ' +
+              (err.message || 'please try again or contact support'),
+          );
+          confirmBtn.disabled = false;
+        }
+      });
+
+      cancelBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.history.replaceState({}, '', window.location.pathname);
+        clearStatus(statusConfirm);
+        show('email');
+      });
+
+      handleAuthCallback();
+    </script>
+  </body>
+</html>
